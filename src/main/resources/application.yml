@@ -1,1 +1,7 @@
-spring.application.name=Leads-Service
+spring:
+  application:
+    name: lms-lead-service
+  config:
+    import: "configserver:http://localhost:9000"
+  profiles:
+    active: dev
