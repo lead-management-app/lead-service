@@ -1,8 +1,9 @@
 package com.blitz.lead_service.controllers;
 
 
-import com.blitz.lead_service.domain.lead.Lead;
 import com.blitz.lead_service.services.LeadService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/lms/api/v1/lead")
@@ -33,6 +30,10 @@ public class LeadController {
      private final LeadService service;
      private static final Logger log = LoggerFactory.getLogger(LeadController.class);
 
+    @Operation(description = "Uploads an Excel file to create multiple new leads in bulk.", responses =
+            {@ApiResponse(description = "Returns a JSON object with a success message", responseCode = "200 Ok"),
+            @ApiResponse(description = "Returns a JSON object with a generic error message if processing fails.", responseCode = "417 Expectation Failed")}
+    )
     @PostMapping("/file")
     private ResponseEntity<Map<String, String>> processFile(@RequestParam("file") MultipartFile clientFile, HttpServletRequest request) throws IOException {
 

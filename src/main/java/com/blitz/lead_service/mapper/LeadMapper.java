@@ -5,7 +5,7 @@ import com.blitz.lead_service.dtos.LeadDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper()
+@Mapper(componentModel = "spring")
 public interface LeadMapper {
 
     @Mapping(target = "status", expression = "java(lead.getStatus().name())")
