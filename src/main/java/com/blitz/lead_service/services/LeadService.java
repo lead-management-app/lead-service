@@ -17,7 +17,6 @@ public interface LeadService {
 
     Optional<LeadDto> saveLead(LeadDto dto) throws Exception;
 
-
     List<LeadDto> getAllLeads(UUID userId);
 
     Optional<LeadDto> updateLead(LeadDto leadDto, UUID leadId) throws Exception;

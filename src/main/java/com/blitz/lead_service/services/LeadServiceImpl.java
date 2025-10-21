@@ -49,6 +49,8 @@ public class LeadServiceImpl implements LeadService {
             }
         }
 
+        dto.setStatus(String.valueOf(Status.NEW_LEAD));
+
         return Optional.of(mapper.leadToLeadDto(leadRepo.save(mapper.leadDtoToLead(dto))));
     }
 

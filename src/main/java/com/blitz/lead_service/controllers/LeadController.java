@@ -30,7 +30,7 @@ public class LeadController {
      private final LeadService service;
      private static final Logger log = LoggerFactory.getLogger(LeadController.class);
 
-    @Operation(description = "Uploads an Excel file to create multiple new leads in bulk.", responses =
+    @Operation(description = "Uploads a .txt file to create multiple new leads in bulk.", responses =
             {@ApiResponse(description = "Returns a JSON object with a success message", responseCode = "200 Ok"),
             @ApiResponse(description = "Returns a JSON object with a generic error message if processing fails.", responseCode = "417 Expectation Failed")}
     )
