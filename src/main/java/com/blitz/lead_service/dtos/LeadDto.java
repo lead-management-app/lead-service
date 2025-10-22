@@ -23,4 +23,11 @@ public class LeadDto {
     private String email;
 
     private String status;
+
+    private int demoInd;
+
+    public boolean isDemoEntity() {
+        return this.demoInd == 1;
+    }
+
 }

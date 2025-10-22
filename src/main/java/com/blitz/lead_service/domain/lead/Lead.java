@@ -30,12 +30,20 @@ public class Lead {
     private String name;
 
     @Column(name = "phone_number", nullable = false)
-    private String  phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "email", nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Column(name = "demo_ind", nullable = false)
+    private int demoInd;
+
+    public boolean isDemoEntity() {
+        return this.demoInd == 1;
+    }
+
 
 }
