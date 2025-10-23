@@ -1,7 +1,7 @@
 package com.blitz.lead_service.controllers;
 
 
-import com.blitz.lead_service.dtos.LeadDto;
+import com.blitz.lead_service.domain.lead.Lead;
 import com.blitz.lead_service.services.LeadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,8 +29,8 @@ public class LeadController {
      private final LeadService service;
      private static final Logger log = LoggerFactory.getLogger(LeadController.class);
 
-    @Operation(description = "Uploads a .txt file to create multiple new leads in bulk.", responses =
-            {@ApiResponse(description = "Returns a JSON object with a success message", responseCode = "200 Ok"),
+    @Operation(description = "Uploads a .txt file to create multiple new leads in bulk.", responses = {
+            @ApiResponse(description = "Returns a JSON object with a success message", responseCode = "200 Ok"),
             @ApiResponse(description = "Returns a JSON object with a generic error message if processing fails.", responseCode = "417 Expectation Failed")}
     )
     @PostMapping("/file")
@@ -48,12 +48,17 @@ public class LeadController {
         }
     }
 
-    @Operation(summary = "fetches all demo leads for demo.", responses =
-            {@ApiResponse(description = "Returns a list of demo leads.", responseCode = "200 Ok"),
-                    @ApiResponse(description = "Returns an empty list if no demo leads are available.", responseCode = "404 Not found")}
+    @Operation(summary = "fetches all demo leads.", responses = {
+            @ApiResponse(description = "Returns a list of ALL demo leads.", responseCode = "200 Ok"),
+            @ApiResponse(description = "Returns an empty list if no demo leads are available.", responseCode = "404 Not found")}
     )
     @GetMapping("/demo/leads")
     private ResponseEntity<?> fetchAllDemoLeads() {
+        List<Lead> demoLeads =  service.fetchAllDemoLeads();
 
+        if (demoLeads.isEmpty()) {
+            return new ResponseEntity<>("No demo leads available.",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(demoLeads,HttpStatus.OK);
     }
 }

@@ -26,11 +26,14 @@ public interface LeadService {
     void validateFile(File file);
 
     // after file has been vetted for accuracy, we create objects from the file contents.
-    public List<Lead> createLeadsFromFile(File file, UUID userId);
+    List<Lead> createLeadsFromFile(File file, UUID userId);
 
     void saveFileLeadsToDb(List<Lead> fileLeads);
 
     File initProcess(MultipartFile clientFile, HttpServletRequest request) throws IOException;
 
     void initAndProcessFile(MultipartFile clientFile, HttpServletRequest request) throws IOException;
+
+    List<Lead> fetchAllDemoLeads();
+
 }

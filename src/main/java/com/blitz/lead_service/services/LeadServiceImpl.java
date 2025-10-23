@@ -159,7 +159,6 @@ public class LeadServiceImpl implements LeadService {
         List<Lead> leads = createLeadsFromFile(file, UUID.fromString(request.getHeader("user-id")));
 
         saveFileLeadsToDb(leads);
-
     };
 
 
@@ -182,6 +181,7 @@ public class LeadServiceImpl implements LeadService {
         return file;
     }
 
-
-
+    public List<Lead> fetchAllDemoLeads() {
+        return leadRepo.findAllDemoLeads();
+    };
 }

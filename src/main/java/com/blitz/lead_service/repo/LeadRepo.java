@@ -24,4 +24,11 @@ public interface LeadRepo extends JpaRepository<Lead, UUID> {
         where l.demoInd = 1
         """)
     int isDemoLeadsExists();
+
+    @Query("""
+        select *
+        from Lead l
+        where l.demo_ind = 1
+        """)
+    List<Lead> findAllDemoLeads();
 }
