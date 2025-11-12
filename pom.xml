@@ -151,7 +151,7 @@
                                     <jvmFlag>-Xmx512m</jvmFlag>
                                 </jvmFlags>
                                 <ports>
-                                    <port>9001</port>
+                                    <port>9003</port>
                                 </ports>
                             </container>
                         </configuration>
@@ -200,7 +200,7 @@
                                     <jvmFlag>-Xmx512m</jvmFlag>
                                 </jvmFlags>
                                 <ports>
-                                    <port>9001</port>
+                                    <port>9003</port>
                                 </ports>
                             </container>
                         </configuration>
