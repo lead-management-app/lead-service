@@ -63,13 +63,23 @@ public class LeadServiceImpl implements LeadService {
 
     @Override
     public Optional<LeadDto> updateLead(LeadDto dto, UUID leadId) throws Exception {
-        Optional<Lead> existingLead = leadRepo.findById(leadId);
+        Optional<Lead> existingLeadOpt = leadRepo.findById(leadId);
 
-        if (existingLead.isEmpty()) {
-            throw new Exception("Lead not found");
+        if (existingLeadOpt.isEmpty()) {
+            return Optional.empty();
         }
 
-        return Optional.of(mapper.leadToLeadDto(leadRepo.save(mapper.leadDtoToLead(dto))));
+        Lead existingLead = existingLeadOpt.get();
+
+        //  Update only non-null fields from DTO
+        if (dto.getName() != null) existingLead.setName(dto.getName());
+        if (dto.getEmail() != null) existingLead.setEmail(dto.getEmail());
+        if (dto.getPhoneNumber() != null) existingLead.setPhoneNumber(dto.getPhoneNumber());
+        if (dto.getStatus() != null) existingLead.setStatus(Status.valueOf(dto.getStatus()));
+        if (dto.getUserId() != null) existingLead.setUserId(dto.getUserId());
+
+        Lead savedLead = leadRepo.save(existingLead);
+        return Optional.of(mapper.leadToLeadDto(savedLead));
     }
 
     @Override
