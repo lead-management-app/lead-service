@@ -53,9 +53,11 @@ public class LeadController {
     )
     @GetMapping("/demo/leads")
     private ResponseEntity<?> fetchAllDemoLeads() {
+        log.info("Requesting for demo leads.");
         List<Lead> demoLeads =  service.fetchAllDemoLeads();
 
         if (demoLeads.isEmpty()) {
+            log.error("No DEMO leads available.");
             return new ResponseEntity<>("No demo leads available.",HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(demoLeads,HttpStatus.OK);
