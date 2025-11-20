@@ -47,6 +47,7 @@ public class LeadsDataSeeder {
 
                 Random random = new Random();
 
+                log.info("About to start creating demo leads.");
                 // create dummy leads for each user id.
                 demoUsersIds.forEach(userId -> {
                     // random number of leads(less than 500) for each user id
