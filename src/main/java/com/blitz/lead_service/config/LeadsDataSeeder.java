@@ -4,6 +4,7 @@ import com.blitz.lead_service.domain.lead.Lead;
 import com.blitz.lead_service.domain.status.Status;
 import com.blitz.lead_service.repo.LeadRepo;
 import com.blitz.lead_service.tourists.clients.UserClient;
+import com.blitz.lead_service.utils.IConstants;
 import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -32,8 +33,12 @@ public class LeadsDataSeeder {
     @Bean
     public CommandLineRunner loadDummyLeads() throws Exception {
 
+        log.info("about to seed dummy data.");
+
         return args -> {
-            if (demoEntitiesExist()) {
+            if (!demoEntitiesExist()) {
+
+                log.info("inside runner..");
 
                 // TODO; WRAP RESILIENCY AROUND THIS.
                 // fetch all user ids.
@@ -42,12 +47,13 @@ public class LeadsDataSeeder {
                     demoUsersIds = userClient.getDemoUserIds();
                 } catch (Exception e) {
                     log.error("Error occurred while fetching demo user ids for creation of leads.");
-                    throw new Exception("Could not create demo leads: user ids not available.");
+                    return;
                 }
 
                 Random random = new Random();
 
                 log.info("About to start creating demo leads.");
+
                 // create dummy leads for each user id.
                 demoUsersIds.forEach(userId -> {
                     // random number of leads(less than 500) for each user id
@@ -70,7 +76,7 @@ public class LeadsDataSeeder {
                         }
                     }
                 });
-                System.out.println("✅ Dummy leads loaded successfully.");
+                System.out.println("Dummy leads loaded successfully.");
             }
         };
     }
@@ -80,11 +86,10 @@ public class LeadsDataSeeder {
     }
 
     private Status getStatus() {
-        String[] status = new String[]
-            {NEW_LEAD, FIRST_CALL, FOLLOW_UP, PROPOSAL_SENT, NEGOTIATION, CLOSED_WON, CLOSED_LOST};
+        Status[] status = new Status []
+            {Status.NEW_LEAD, Status.FIRST_CALL, Status.FOLLOW_UP, Status.PROPOSAL_SENT, Status.NEGOTIATION, Status.CLOSED_WON, Status.CLOSED_LOST};
 
         Random random = new Random();
-        int statusVal = random.nextInt(status.length);
-        return Status.valueOf(status[statusVal]);
+        return status[random.nextInt(status.length)];
     }
 }

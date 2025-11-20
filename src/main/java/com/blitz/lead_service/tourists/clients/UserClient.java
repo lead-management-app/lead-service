@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @FeignClient(
         name = "lms-auth-service",
-        path = "/lms/v1/auth/user"
+        path = "/lms/api/v1/auth/user"
 )
 public interface UserClient {
 

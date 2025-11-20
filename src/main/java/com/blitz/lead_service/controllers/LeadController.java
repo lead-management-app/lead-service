@@ -4,6 +4,7 @@ package com.blitz.lead_service.controllers;
 import com.blitz.lead_service.domain.lead.Lead;
 import com.blitz.lead_service.dtos.LeadDto;
 import com.blitz.lead_service.services.LeadService;
+import com.blitz.lead_service.tourists.clients.UserClient;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,6 +28,7 @@ public class LeadController {
 
      private final LeadService service;
      private static final Logger log = LoggerFactory.getLogger(LeadController.class);
+     private final UserClient userClient;
 
     @Operation(description = "Uploads a .txt file to create multiple new leads in bulk.", responses = {
             @ApiResponse(description = "Returns a JSON object with a success message", responseCode = "200 Ok"),
@@ -52,8 +54,11 @@ public class LeadController {
             @ApiResponse(description = "Returns an empty list if no demo leads are available.", responseCode = "404 Not found")}
     )
     @GetMapping("/demo/leads")
-    private ResponseEntity<?> fetchAllDemoLeads() {
+    private ResponseEntity<?> fetchAllDemoLeads() throws Exception {
         log.info("Requesting for demo leads.");
+
+        List<UUID> demoUsersIds = userClient.getDemoUserIds();
+
         List<Lead> demoLeads =  service.fetchAllDemoLeads();
 
         if (demoLeads.isEmpty()) {

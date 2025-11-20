@@ -34,6 +34,6 @@ public interface LeadService {
 
     void initAndProcessFile(MultipartFile clientFile, HttpServletRequest request) throws IOException;
 
-    List<Lead> fetchAllDemoLeads();
+    List<Lead> fetchAllDemoLeads() throws Exception;
 
 }

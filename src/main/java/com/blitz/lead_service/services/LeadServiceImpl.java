@@ -5,9 +5,13 @@ import com.blitz.lead_service.domain.status.Status;
 import com.blitz.lead_service.dtos.LeadDto;
 import com.blitz.lead_service.mapper.LeadMapper;
 import com.blitz.lead_service.repo.LeadRepo;
+import com.blitz.lead_service.tourists.clients.UserClient;
 import com.blitz.lead_service.utils.IConstants;
+import com.github.javafaker.Faker;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,11 +19,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.blitz.lead_service.utils.IConstants.*;
+import static com.blitz.lead_service.utils.IConstants.CLOSED_LOST;
+import static com.blitz.lead_service.utils.IConstants.CLOSED_WON;
+import static com.blitz.lead_service.utils.IConstants.NEGOTIATION;
+import static com.blitz.lead_service.utils.IConstants.PROPOSAL_SENT;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +34,10 @@ public class LeadServiceImpl implements LeadService {
 
     private final LeadRepo leadRepo;
     private final LeadMapper mapper;
+    private static final Logger log = LoggerFactory.getLogger(LeadServiceImpl.class);
+    private final UserClient userClient;
+    Faker faker = new Faker(new Locale("en"));
+
 
     @Override
     public Optional<LeadDto> getLeadById(UUID leadId) {
@@ -191,7 +202,8 @@ public class LeadServiceImpl implements LeadService {
         return file;
     }
 
-    public List<Lead> fetchAllDemoLeads() {
+    public List<Lead> fetchAllDemoLeads() throws Exception {
+
         return leadRepo.findAllDemoLeads();
     };
 }
