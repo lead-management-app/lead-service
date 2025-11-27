@@ -30,6 +30,7 @@
 		<java.version>17</java.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
         <org.mapstruct.version>1.5.4.Final</org.mapstruct.version>
+        <otelVersion>2.22.0</otelVersion>
     </properties>
 	<dependencies>
 		<dependency>
@@ -102,6 +103,10 @@
             <version>2.3.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        </dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -112,6 +117,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+            <dependency>
+                <groupId>io.opentelemetry.instrumentation</groupId>
+                <artifactId>opentelemetry-instrumentation-bom</artifactId>
+                <version>${otelVersion}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
