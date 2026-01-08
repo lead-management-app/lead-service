@@ -18,7 +18,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
-import static com.blitz.lead_service.utils.IConstants.*;
 
 @Configuration
 @RequiredArgsConstructor
@@ -57,7 +56,7 @@ public class LeadsDataSeeder {
                 // create dummy leads for each user id.
                 demoUsersIds.forEach(userId -> {
                     // random number of leads(less than 500) for each user id
-                    for (int count = 0; count < random.nextInt(500); count++) {
+                    for (int count = 0; count < random.nextInt(250); count++) {
 
                         String companyName = faker.company().name();
                         String phone = faker.phoneNumber().phoneNumber();
