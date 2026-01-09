@@ -30,6 +30,12 @@ public class LeadController {
      private static final Logger log = LoggerFactory.getLogger(LeadController.class);
      private final UserClient userClient;
 
+    // ---------------------- Greeting ----------------------
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, guest!, Welcome to the Varata LMS!";
+    }
+
     @Operation(description = "Uploads a .txt file to create multiple new leads in bulk.", responses = {
             @ApiResponse(description = "Returns a JSON object with a success message", responseCode = "200 Ok"),
             @ApiResponse(description = "Returns a JSON object with a generic error message if processing fails.", responseCode = "417 Expectation Failed")}
