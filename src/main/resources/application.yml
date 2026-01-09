@@ -18,3 +18,11 @@ spring:
     activate:
       on-profile: docker
     import: "configserver:http://config-server:9000"
+
+---
+# 3. Prod.
+spring:
+  config:
+    activate:
+      on-profile: aws-prod
+    import: "optional:configserver:http://config-server:9000"
